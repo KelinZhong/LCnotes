@@ -1,0 +1,26 @@
+format: jb-book
+root: intro
+chapters:
+  - file: Python LeetCode/Python_DSA
+    title: Python LeetCode
+    sections:
+      - file: Python LeetCode/reference_python_builtins
+      - file: Python LeetCode/reference_python_strings
+      - file: Python LeetCode/Reference_Arrays_and_Hashing
+      - file: Python LeetCode/Study_Guide_Sliding_Window_and_Two_Pointers
+      - file: Python LeetCode/Cheatsheet_Heap_and_Monotonic_Stack
+      - file: Python LeetCode/Study_Guide_DP
+      - file: Python LeetCode/Cheatsheet_backtracking
+      - file: Python LeetCode/Study_Guide_Trees_and_Graphs
+      - file: Python LeetCode/Cheatsheet_Trie_and_Union_Find
+      - file: Python LeetCode/Cheatsheet_Binary_Search
+      - file: Python LeetCode/Reference_Linkedlists_and_Bit_Manipulation
+      - file: Python LeetCode/Reference_Divide_Conquer
+      - file: Python LeetCode/Cheatsheet_Greedy
+      - file: Python LeetCode/Reference_Segment_Tree_Bit
+
+  - file: SQL LeetCode/SQL_quickcheck
+    title: SQL LeetCode
+    sections:
+      - file: SQL LeetCode/reference_SQL_syntax
+      - file: SQL LeetCode/reference_SQL_patterns
