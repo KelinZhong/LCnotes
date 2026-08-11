@@ -1,3 +1,4 @@
-jupyter-book
+jupyter-book<2
+pydata-sphinx-theme==0.16.1
+ghp-import
 ipykernel
-pydata-sphinx-theme
