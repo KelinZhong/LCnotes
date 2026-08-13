@@ -2,7 +2,7 @@
 
 Personal study guides, cheatsheets, and references for coding-interview practice in Python and SQL.
 
-To read other notes, visite [Study Notes](https://kelinzhong.github.io/StudyNotes/).
+To read other notes, visit [Study Notes](https://kelinzhong.github.io/StudyNotes/).
 
 ## Contents
 
