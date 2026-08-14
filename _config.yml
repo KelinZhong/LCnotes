@@ -3,8 +3,8 @@ author: Kelin Zhong
 repository:
   url: https://github.com/KelinZhong/LCnotes
 
-# All notebooks here carry their saved outputs, so nothing needs re-running
-# at build time.
+# Notebooks hold templates and reference material, not runnable analyses.
+# Nothing is executed at build time.
 execute:
   execute_notebooks: "off"
 
@@ -15,6 +15,8 @@ html:
 sphinx:
   config:
     html_theme: pydata_sphinx_theme
+    html_static_path: ["_static"]
+    html_css_files: ["custom.css"]
     html_theme_options:
       # 1. Rename the "More" button to "Topics"
       header_dropdown_text: "Topics"
