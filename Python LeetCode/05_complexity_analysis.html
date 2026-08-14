@@ -1,0 +1,792 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Complexity Analysis — How to Derive It &#8212; LeetCode Prep Notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=91b9d135" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Python LeetCode/05_complexity_analysis';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Core Patterns" href="group_core_patterns.html" />
+    <link rel="prev" title="Complexity Reference — Python Operation Costs" href="04_complexity_reference.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">LeetCode Prep Notes</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    Topics
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="00_python_dsa.html">
+    Start Here
+  </a>
+</li>
+
+
+<li class=" current active">
+  <a class="nav-link dropdown-item nav-internal" href="group_toolkit.html">
+    Python Toolkit & Complexity
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="group_core_patterns.html">
+    Core Patterns
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="group_advanced.html">
+    Advanced
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../SQL%20LeetCode/SQL_quickcheck.html">
+    SQL
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="00_python_dsa.html">
+    Start Here
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="group_toolkit.html">
+    Python Toolkit & Complexity
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="group_core_patterns.html">
+    Core Patterns
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="group_advanced.html">
+    Advanced
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../SQL%20LeetCode/SQL_quickcheck.html">
+    SQL
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="02_python_builtins.html">Python Builtins (Reference)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_python_strings.html">Python Strings (Reference)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_complexity_reference.html">Complexity Reference</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Complexity Analysis (Method)</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-index">Quick Index</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-counting">§1 — Loop counting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recursion-trees">§2 — Recursion trees</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#amortised-analysis">§3 — Amortised analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#space-complexity">§4 — Space complexity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complexities-worth-recognising-on-sight">§5 — Complexities worth recognising on sight</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-mistakes">§6 — Common mistakes</a></li>
+</ul>
+  </nav></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../intro.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="group_toolkit.html" class="nav-link">Python Toolkit &amp; Complexity</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Complexity Analysis — How to Derive It</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="complexity-analysis-how-to-derive-it">
+<h1>Complexity Analysis — How to Derive It<a class="headerlink" href="#complexity-analysis-how-to-derive-it" title="Link to this heading">#</a></h1>
+<p><em>Method — read once, then apply. For looking up the cost of a built-in operation, use <code class="docutils literal notranslate"><span class="pre">04_complexity_reference</span></code> instead.</em></p>
+<p>Interviewers do not ask you to recall a complexity; they ask you to derive one for code you have just written, often code that is not in any table. This notebook covers the four techniques that account for almost every derivation you will need: <strong>loop counting</strong>, <strong>recursion trees</strong>, <strong>amortised reasoning</strong>, and <strong>space including the call stack</strong>.</p>
+<p>Worked applications live in the topic notebooks — the amortised argument for the monotonic stack is in <code class="docutils literal notranslate"><span class="pre">09_heap_and_monotonic_stack</span></code>, the recursion-tree counts for subsets and permutations are in <code class="docutils literal notranslate"><span class="pre">12_backtracking</span></code>.</p>
+<section id="quick-index">
+<h2>Quick Index<a class="headerlink" href="#quick-index" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Section</p></th>
+<th class="head text-left"><p>Content</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>§1</p></td>
+<td class="text-left"><p>Loop counting</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>§2</p></td>
+<td class="text-left"><p>Recursion trees</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>§3</p></td>
+<td class="text-left"><p>Amortised analysis</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>§4</p></td>
+<td class="text-left"><p>Space complexity, including the recursion stack</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>§5</p></td>
+<td class="text-left"><p>Complexities worth recognising on sight</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>§6</p></td>
+<td class="text-left"><p>Common mistakes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="loop-counting">
+<h2>§1 — Loop counting<a class="headerlink" href="#loop-counting" title="Link to this heading">#</a></h2>
+<p>Two rules cover most cases: <strong>nested loops multiply, sequential loops add.</strong></p>
+<p>Sequential blocks add and the larger dominates, so an O(n) pass followed by an O(n log n) sort is O(n log n) overall. Nested loops multiply — but only when the inner bound is independent of the outer one.</p>
+<p><strong>The case people get wrong</strong> is when the inner bound depends on the outer variable:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>    <span class="c1"># NOT n iterations — it is n - i</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+<p>This is not O(n²) by the multiplication rule; you have to sum the series. The inner loop runs <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">−</span> <span class="pre">i</span></code> times, so the total is <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">+</span> <span class="pre">(n−1)</span> <span class="pre">+</span> <span class="pre">...</span> <span class="pre">+</span> <span class="pre">1</span> <span class="pre">=</span> <span class="pre">n(n+1)/2</span></code>, which is <strong>O(n²)</strong> anyway — but only because the series happens to sum that way. The same shape with a <em>halving</em> inner bound is very different:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="n">n</span>
+<span class="k">while</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>       <span class="c1"># i, then i/2, then i/4, ...</span>
+        <span class="o">...</span>
+    <span class="n">i</span> <span class="o">//=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>Here the total is <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">+</span> <span class="pre">n/2</span> <span class="pre">+</span> <span class="pre">n/4</span> <span class="pre">+</span> <span class="pre">...</span> <span class="pre">=</span> <span class="pre">2n</span></code>, which is <strong>O(n)</strong>, not O(n log n). A geometric series is dominated by its largest term. This is the single most useful fact in loop counting, and it is also the engine behind amortised analysis in §3.</p>
+<p><strong>Loops that multiply by a non-<code class="docutils literal notranslate"><span class="pre">n</span></code> factor.</strong> When the inner loop is bounded by something other than the input size — the alphabet, the number of bits, a fixed k — carry it in the complexity rather than dropping it. <code class="docutils literal notranslate"><span class="pre">O(n</span> <span class="pre">·</span> <span class="pre">26)</span></code> is honest and simplifies to O(n); <code class="docutils literal notranslate"><span class="pre">O(n</span> <span class="pre">·</span> <span class="pre">m)</span></code> where <code class="docutils literal notranslate"><span class="pre">m</span></code> is another input does not simplify at all, and interviewers notice when you drop it.</p>
+</section>
+<hr class="docutils" />
+<section id="recursion-trees">
+<h2>§2 — Recursion trees<a class="headerlink" href="#recursion-trees" title="Link to this heading">#</a></h2>
+<p>For a recursive function, draw the call tree and count the nodes. Two numbers determine everything:</p>
+<ul class="simple">
+<li><p><strong>b</strong> — the branching factor: how many recursive calls each invocation makes.</p></li>
+<li><p><strong>d</strong> — the depth: how many levels before you hit the base case.</p></li>
+</ul>
+<p>The tree has roughly <strong>b^d</strong> nodes. Multiply by the work done <em>at</em> each node (excluding the recursive calls) to get the total.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>Branching</p></th>
+<th class="head text-left"><p>Depth</p></th>
+<th class="head text-left"><p>Work per node</p></th>
+<th class="head text-left"><p>Total</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Subsets — include or exclude each element</p></td>
+<td class="text-left"><p>2</p></td>
+<td class="text-left"><p>n</p></td>
+<td class="text-left"><p>O(1)</p></td>
+<td class="text-left"><p><strong>O(2ⁿ)</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Subsets, copying each result</p></td>
+<td class="text-left"><p>2</p></td>
+<td class="text-left"><p>n</p></td>
+<td class="text-left"><p>O(n) to copy</p></td>
+<td class="text-left"><p><strong>O(n · 2ⁿ)</strong></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Permutations — choose from remaining</p></td>
+<td class="text-left"><p>n, then n−1, then n−2 …</p></td>
+<td class="text-left"><p>n</p></td>
+<td class="text-left"><p>O(1)</p></td>
+<td class="text-left"><p><strong>O(n!)</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Permutations, copying each result</p></td>
+<td class="text-left"><p>as above</p></td>
+<td class="text-left"><p>n</p></td>
+<td class="text-left"><p>O(n)</p></td>
+<td class="text-left"><p><strong>O(n · n!)</strong></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Naive Fibonacci</p></td>
+<td class="text-left"><p>2</p></td>
+<td class="text-left"><p>n</p></td>
+<td class="text-left"><p>O(1)</p></td>
+<td class="text-left"><p><strong>O(2ⁿ)</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Memoised Fibonacci</p></td>
+<td class="text-left"><p>2, but each state computed once</p></td>
+<td class="text-left"><p>—</p></td>
+<td class="text-left"><p>O(1)</p></td>
+<td class="text-left"><p><strong>O(n)</strong></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Binary search</p></td>
+<td class="text-left"><p>1</p></td>
+<td class="text-left"><p>log n</p></td>
+<td class="text-left"><p>O(1)</p></td>
+<td class="text-left"><p><strong>O(log n)</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Merge sort</p></td>
+<td class="text-left"><p>2</p></td>
+<td class="text-left"><p>log n</p></td>
+<td class="text-left"><p>O(n) merge per <em>level</em></p></td>
+<td class="text-left"><p><strong>O(n log n)</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Why permutations is n! and not nⁿ.</strong> The branching factor shrinks: the root has n choices, each child has n−1 remaining, and so on. The product <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">×</span> <span class="pre">(n−1)</span> <span class="pre">×</span> <span class="pre">...</span> <span class="pre">×</span> <span class="pre">1</span></code> is n!, not nⁿ. Subsets keeps a constant branching factor of 2 at every level, which is why it is 2ⁿ.</p>
+<p><strong>Why merge sort is n log n.</strong> Do not count nodes here — count <em>levels</em>. There are log n levels, and every level does O(n) total merging work regardless of how many nodes it is split across. Levels × work-per-level is the right frame whenever the work per node shrinks in proportion to the branching.</p>
+<p><strong>Memoisation changes the count entirely.</strong> Once results are cached, the tree collapses: the total is <strong>(number of distinct states) × (work per state)</strong>, and the branching factor becomes irrelevant. This is the whole reason DP is faster than backtracking on the same recurrence. For a DP with a 2D state over <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span></code> and O(1) transitions, that is O(n · m) — count the states, not the calls.</p>
+</section>
+<hr class="docutils" />
+<section id="amortised-analysis">
+<h2>§3 — Amortised analysis<a class="headerlink" href="#amortised-analysis" title="Link to this heading">#</a></h2>
+<p>Some loops look quadratic and are not. When an inner <code class="docutils literal notranslate"><span class="pre">while</span></code> loop is bounded by <em>how much work earlier iterations created</em> rather than by n, the correct total is the sum over the whole run, not the worst case of a single iteration multiplied by n.</p>
+<p><strong>The accounting argument.</strong> Find a quantity that each unit of inner work consumes, bound how much of it can ever be created, and the total inner work is bounded by that.</p>
+<p><strong>Monotonic stack.</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">:</span>
+    <span class="k">while</span> <span class="n">stack</span> <span class="ow">and</span> <span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">:</span>   <span class="c1"># looks like it could run n times</span>
+        <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+    <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The inner <code class="docutils literal notranslate"><span class="pre">while</span></code> can indeed run n times on a single iteration. But each iteration pushes exactly <strong>one</strong> element, so across the whole loop at most n elements are ever pushed — and each can be popped at most once. Total pops ≤ n, so the whole thing is <strong>O(n)</strong>, not O(n²). The unit being consumed is “an element on the stack”, and only n are ever created.</p>
+<p><strong>Sliding window.</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">right</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">while</span> <span class="n">invalid</span><span class="p">(</span><span class="n">window</span><span class="p">):</span>
+        <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>        <span class="c1"># never moves backwards</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">left</span></code> only ever increases and is bounded by n, so the inner loop executes at most n times <em>in total</em> across all iterations of the outer loop. Outer O(n) plus inner O(n) total is <strong>O(n)</strong>. The unit here is “positions the left pointer can advance”, of which there are n.</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">list.append</span></code>.</strong> Appending is O(1) amortised, not O(1) worst case: when the backing array is full, CPython allocates a larger one and copies everything, which is O(n) for that single call. But resizes are geometric, so across n appends the total copying is <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">+</span> <span class="pre">2</span> <span class="pre">+</span> <span class="pre">4</span> <span class="pre">+</span> <span class="pre">...</span> <span class="pre">+</span> <span class="pre">n</span> <span class="pre">&lt;</span> <span class="pre">2n</span></code> — the same geometric-series argument from §1. Amortised O(1).</p>
+<p><strong>The test for whether amortised reasoning applies:</strong> ask whether the inner loop’s work is bounded by something <em>created</em> by earlier iterations and <em>consumed</em> permanently. If work can be redone — as in a nested scan that restarts from zero each time — it is genuinely quadratic and amortised reasoning does not apply.</p>
+</section>
+<hr class="docutils" />
+<section id="space-complexity">
+<h2>§4 — Space complexity<a class="headerlink" href="#space-complexity" title="Link to this heading">#</a></h2>
+<p>Space is the more commonly botched half, because the parts that count are easy to forget.</p>
+<p><strong>Count all four of these:</strong></p>
+<ol class="arabic simple">
+<li><p>Explicit data structures you allocate.</p></li>
+<li><p><strong>The recursion call stack</strong> — depth × frame size.</p></li>
+<li><p>Copies made by slicing, <code class="docutils literal notranslate"><span class="pre">sorted()</span></code>, or building result lists.</p></li>
+<li><p>Space used by the output, <em>if</em> the question counts it.</p></li>
+</ol>
+<p><strong>The recursion stack is the one people miss.</strong> This DFS is routinely described as O(1) space:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">maxDepth</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">root</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">max</span><span class="p">(</span><span class="n">maxDepth</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">),</span> <span class="n">maxDepth</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>It allocates nothing, but at its deepest point there are <strong>h</strong> stack frames live, where <code class="docutils literal notranslate"><span class="pre">h</span></code> is the height of the tree. So the space is <strong>O(h)</strong> — O(log n) for a balanced tree, and <strong>O(n)</strong> for a degenerate one shaped like a linked list. Always state it as O(h) and then give the two bounds; saying “O(1)” is wrong and saying “O(log n)” is only true for balanced input.</p>
+<p>The same applies elsewhere:</p>
+<ul class="simple">
+<li><p><strong>Backtracking:</strong> O(depth) for the stack plus O(depth) for the current partial candidate — usually O(n) — <em>excluding</em> the output, which can be exponential.</p></li>
+<li><p><strong>Merge sort:</strong> O(n) for the merge buffer plus O(log n) for the stack, so O(n).</p></li>
+<li><p><strong>Quicksort:</strong> O(log n) expected stack depth, O(n) worst case if the pivots are bad.</p></li>
+<li><p><strong>Iterative BFS:</strong> no recursion stack, but the queue can hold an entire level — O(w) where <code class="docutils literal notranslate"><span class="pre">w</span></code> is the maximum width, which is O(n) for the last level of a complete tree.</p></li>
+</ul>
+<p><strong>Output space convention.</strong> For a problem that must return every subset, the output is O(2ⁿ) and there is nothing to be done about it. The convention is to state auxiliary space separately: “O(n) auxiliary, excluding the O(n · 2ⁿ) output”. Say which convention you are using rather than leaving it ambiguous.</p>
+<p><strong>Sneaky allocations.</strong> <code class="docutils literal notranslate"><span class="pre">s[i:j]</span></code> copies. <code class="docutils literal notranslate"><span class="pre">sorted(x)</span></code> builds a new list while <code class="docutils literal notranslate"><span class="pre">x.sort()</span></code> does not. <code class="docutils literal notranslate"><span class="pre">list(range(n))</span></code> materialises n integers while <code class="docutils literal notranslate"><span class="pre">range(n)</span></code> does not. Passing a slice into a recursive call — <code class="docutils literal notranslate"><span class="pre">helper(nums[1:])</span></code> — turns an O(n) recursion into O(n²) time <em>and</em> space, which is why the index-passing form <code class="docutils literal notranslate"><span class="pre">helper(nums,</span> <span class="pre">i</span> <span class="pre">+</span> <span class="pre">1)</span></code> is standard.</p>
+</section>
+<hr class="docutils" />
+<section id="complexities-worth-recognising-on-sight">
+<h2>§5 — Complexities worth recognising on sight<a class="headerlink" href="#complexities-worth-recognising-on-sight" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Shape you see</p></th>
+<th class="head text-left"><p>Complexity</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Halving the search space each step</p></td>
+<td class="text-left"><p>O(log n)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>One pass, O(1) work per element</p></td>
+<td class="text-left"><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>One pass with an amortised inner <code class="docutils literal notranslate"><span class="pre">while</span></code></p></td>
+<td class="text-left"><p>O(n)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Sort, then a single pass</p></td>
+<td class="text-left"><p>O(n log n)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Heap of size k, pushed n times</p></td>
+<td class="text-left"><p>O(n log k)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Every pair</p></td>
+<td class="text-left"><p>O(n²)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>2D DP over an n × m table, O(1) transitions</p></td>
+<td class="text-left"><p>O(n · m)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>2D DP with an O(n) transition inside each cell</p></td>
+<td class="text-left"><p>O(n³)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Include-or-exclude over n items</p></td>
+<td class="text-left"><p>O(2ⁿ)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>All orderings of n items</p></td>
+<td class="text-left"><p>O(n!)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Bitmask DP over subsets with an O(n) transition</p></td>
+<td class="text-left"><p>O(n · 2ⁿ)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>A quick sanity check against the constraints:</strong> roughly 10⁸ elementary operations per second is the working assumption. If <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">10⁵</span></code> and your solution is O(n²), that is 10¹⁰ — three orders of magnitude too slow, so stop coding and rethink. Table 1 in <code class="docutils literal notranslate"><span class="pre">01_decision_guide</span></code> inverts this: it starts from the constraint and tells you which complexities are admissible.</p>
+</section>
+<hr class="docutils" />
+<section id="common-mistakes">
+<h2>§6 — Common mistakes<a class="headerlink" href="#common-mistakes" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Mistake</p></th>
+<th class="head text-left"><p>Symptom</p></th>
+<th class="head text-left"><p>Correction</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Calling a DFS “O(1) space”</p></td>
+<td class="text-left"><p>Interviewer pushes back; MLE on a skewed tree</p></td>
+<td class="text-left"><p>It is O(h) — the recursion stack</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Dropping the copy cost of results</p></td>
+<td class="text-left"><p>Stated O(2ⁿ) for subsets, actually O(n · 2ⁿ)</p></td>
+<td class="text-left"><p>Multiply node count by work per node</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Multiplying instead of summing for nested amortised loops</p></td>
+<td class="text-left"><p>Stated O(n²) for a monotonic stack</p></td>
+<td class="text-left"><p>Each element is pushed and popped once → O(n)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Treating <code class="docutils literal notranslate"><span class="pre">bisect.insort</span></code> as O(log n)</p></td>
+<td class="text-left"><p>TLE despite a “log n” analysis</p></td>
+<td class="text-left"><p>The search is O(log n); the shift is O(n)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Ignoring the length of hashed keys</p></td>
+<td class="text-left"><p>Stated O(n), actually O(n · k)</p></td>
+<td class="text-left"><p>Hashing a string is proportional to its length</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Dropping a second input variable</p></td>
+<td class="text-left"><p>Stated O(n²) when it is O(n · m)</p></td>
+<td class="text-left"><p>Keep both symbols when both are inputs</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Counting recursive <em>calls</em> under memoisation</p></td>
+<td class="text-left"><p>Stated O(2ⁿ) for memoised DP</p></td>
+<td class="text-left"><p>Count distinct <em>states</em> × work per state</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Forgetting slices copy</p></td>
+<td class="text-left"><p>Stated O(n) for a recursion that passes <code class="docutils literal notranslate"><span class="pre">nums[1:]</span></code></p></td>
+<td class="text-left"><p>O(n²); pass an index instead</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Assuming <code class="docutils literal notranslate"><span class="pre">heapify</span></code> is O(n log n)</p></td>
+<td class="text-left"><p>Missing an easy optimisation</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">heapify</span></code> is O(n); repeated push is O(n log n)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Quoting average case for a hash-heavy solution without saying so</p></td>
+<td class="text-left"><p>Fine in practice, but state the assumption</p></td>
+<td class="text-left"><p>“O(1) average for dict lookups”</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Python LeetCode"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="04_complexity_reference.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Complexity Reference — Python Operation Costs</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="group_core_patterns.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Core Patterns</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

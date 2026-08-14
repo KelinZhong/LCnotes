@@ -1,0 +1,1022 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Complexity Reference — Python Operation Costs &#8212; LeetCode Prep Notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=91b9d135" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Python LeetCode/04_complexity_reference';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Complexity Analysis — How to Derive It" href="05_complexity_analysis.html" />
+    <link rel="prev" title="Python Strings — Technical Reference" href="03_python_strings.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">LeetCode Prep Notes</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    Topics
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="00_python_dsa.html">
+    Start Here
+  </a>
+</li>
+
+
+<li class=" current active">
+  <a class="nav-link dropdown-item nav-internal" href="group_toolkit.html">
+    Python Toolkit & Complexity
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="group_core_patterns.html">
+    Core Patterns
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="group_advanced.html">
+    Advanced
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../SQL%20LeetCode/SQL_quickcheck.html">
+    SQL
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="00_python_dsa.html">
+    Start Here
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="group_toolkit.html">
+    Python Toolkit & Complexity
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="group_core_patterns.html">
+    Core Patterns
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="group_advanced.html">
+    Advanced
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../SQL%20LeetCode/SQL_quickcheck.html">
+    SQL
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="02_python_builtins.html">Python Builtins (Reference)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_python_strings.html">Python Strings (Reference)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Complexity Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_complexity_analysis.html">Complexity Analysis (Method)</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-index">Quick Index</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list">§1 — list</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dict-and-set">§2 — dict and set</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collections">§3 — collections</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deque">deque</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#counter">Counter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defaultdict">defaultdict</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heapq">§4 — heapq</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#str">§5 — str</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting-and-searching">§6 — sorting and searching</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-footprints">§7 — memory footprints</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-traps-that-cost-the-most">§8 — the traps that cost the most</a></li>
+</ul>
+  </nav></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../intro.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="group_toolkit.html" class="nav-link">Python Toolkit &amp; Complexity</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Complexity Reference — Python Operation Costs</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="complexity-reference-python-operation-costs">
+<h1>Complexity Reference — Python Operation Costs<a class="headerlink" href="#complexity-reference-python-operation-costs" title="Link to this heading">#</a></h1>
+<p><em>Reference — flat lookup, no prose. Open this mid-problem when you need the cost of a specific operation.</em></p>
+<p>Every cost below is for CPython. “Amortised” means the average over a long sequence of operations; a single call can be worse. For <em>deriving</em> the complexity of code you have just written, see <code class="docutils literal notranslate"><span class="pre">05_complexity_analysis</span></code>.</p>
+<section id="quick-index">
+<h2>Quick Index<a class="headerlink" href="#quick-index" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Section</p></th>
+<th class="head text-left"><p>Content</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>§1</p></td>
+<td class="text-left"><p>list</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>§2</p></td>
+<td class="text-left"><p>dict and set</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>§3</p></td>
+<td class="text-left"><p>collections — deque, Counter, defaultdict</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>§4</p></td>
+<td class="text-left"><p>heapq</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>§5</p></td>
+<td class="text-left"><p>str</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>§6</p></td>
+<td class="text-left"><p>sorting and searching</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>§7</p></td>
+<td class="text-left"><p>memory footprints</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>§8</p></td>
+<td class="text-left"><p>the traps that cost the most</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="list">
+<h2>§1 — list<a class="headerlink" href="#list" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Operation</p></th>
+<th class="head text-left"><p>Time</p></th>
+<th class="head text-left"><p>Note</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">lst[i]</span></code> — index read or write</p></td>
+<td class="text-left"><p>O(1)</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">lst.append(x)</span></code></p></td>
+<td class="text-left"><p>O(1) amortised</p></td>
+<td class="text-left"><p>Occasional resize copies everything</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">lst.pop()</span></code> — from the end</p></td>
+<td class="text-left"><p>O(1)</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">lst.pop(0)</span></code> — from the front</p></td>
+<td class="text-left"><p><strong>O(n)</strong></p></td>
+<td class="text-left"><p>Shifts every element. Use <code class="docutils literal notranslate"><span class="pre">deque</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">lst.insert(i,</span> <span class="pre">x)</span></code></p></td>
+<td class="text-left"><p>O(n)</p></td>
+<td class="text-left"><p>Shifts the tail</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">del</span> <span class="pre">lst[i]</span></code></p></td>
+<td class="text-left"><p>O(n)</p></td>
+<td class="text-left"><p>Same reason</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">in</span> <span class="pre">lst</span></code></p></td>
+<td class="text-left"><p><strong>O(n)</strong></p></td>
+<td class="text-left"><p>Linear scan. Use a <code class="docutils literal notranslate"><span class="pre">set</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">lst.index(x)</span></code></p></td>
+<td class="text-left"><p>O(n)</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">lst.count(x)</span></code></p></td>
+<td class="text-left"><p>O(n)</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">len(lst)</span></code></p></td>
+<td class="text-left"><p>O(1)</p></td>
+<td class="text-left"><p>Length is stored</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">lst[a:b]</span></code> — slice</p></td>
+<td class="text-left"><p>O(b − a)</p></td>
+<td class="text-left"><p>Copies</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">lst</span> <span class="pre">+</span> <span class="pre">other</span></code></p></td>
+<td class="text-left"><p>O(n + m)</p></td>
+<td class="text-left"><p>Builds a new list</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">lst.reverse()</span></code></p></td>
+<td class="text-left"><p>O(n)</p></td>
+<td class="text-left"><p>In place</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">lst.sort()</span></code></p></td>
+<td class="text-left"><p>O(n log n)</p></td>
+<td class="text-left"><p>Timsort, in place, stable</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">min(lst)</span></code> / <code class="docutils literal notranslate"><span class="pre">max(lst)</span></code> / <code class="docutils literal notranslate"><span class="pre">sum(lst)</span></code></p></td>
+<td class="text-left"><p>O(n)</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">lst.extend(other)</span></code></p></td>
+<td class="text-left"><p>O(m)</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[0]</span> <span class="pre">*</span> <span class="pre">n</span></code></p></td>
+<td class="text-left"><p>O(n)</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>The one that decides problems:</strong> <code class="docutils literal notranslate"><span class="pre">pop(0)</span></code> and <code class="docutils literal notranslate"><span class="pre">insert(0,</span> <span class="pre">x)</span></code> are O(n). A BFS written with <code class="docutils literal notranslate"><span class="pre">list.pop(0)</span></code> is O(n²) and will time out at <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">10⁵</span></code>. <code class="docutils literal notranslate"><span class="pre">collections.deque</span></code> makes both ends O(1).</p>
+</section>
+<hr class="docutils" />
+<section id="dict-and-set">
+<h2>§2 — dict and set<a class="headerlink" href="#dict-and-set" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Operation</p></th>
+<th class="head text-left"><p>Average</p></th>
+<th class="head text-left"><p>Worst</p></th>
+<th class="head text-left"><p>Note</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">d[k]</span></code> — read</p></td>
+<td class="text-left"><p>O(1)</p></td>
+<td class="text-left"><p>O(n)</p></td>
+<td class="text-left"><p>Worst case needs adversarial hash collisions</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">d[k]</span> <span class="pre">=</span> <span class="pre">v</span></code> — write</p></td>
+<td class="text-left"><p>O(1) amortised</p></td>
+<td class="text-left"><p>O(n)</p></td>
+<td class="text-left"><p>Resize on growth</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">in</span> <span class="pre">d</span></code> / <code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">in</span> <span class="pre">s</span></code></p></td>
+<td class="text-left"><p>O(1)</p></td>
+<td class="text-left"><p>O(n)</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">del</span> <span class="pre">d[k]</span></code> / <code class="docutils literal notranslate"><span class="pre">s.discard(x)</span></code></p></td>
+<td class="text-left"><p>O(1)</p></td>
+<td class="text-left"><p>O(n)</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">d.get(k,</span> <span class="pre">default)</span></code></p></td>
+<td class="text-left"><p>O(1)</p></td>
+<td class="text-left"><p>O(n)</p></td>
+<td class="text-left"><p>No exception, no extra lookup</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">len(d)</span></code></p></td>
+<td class="text-left"><p>O(1)</p></td>
+<td class="text-left"><p>O(1)</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Iterate <code class="docutils literal notranslate"><span class="pre">d</span></code> / <code class="docutils literal notranslate"><span class="pre">s</span></code></p></td>
+<td class="text-left"><p>O(n)</p></td>
+<td class="text-left"><p>O(n)</p></td>
+<td class="text-left"><p>Insertion order for <code class="docutils literal notranslate"><span class="pre">dict</span></code> (3.7+)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">d.keys()</span></code> / <code class="docutils literal notranslate"><span class="pre">.values()</span></code> / <code class="docutils literal notranslate"><span class="pre">.items()</span></code></p></td>
+<td class="text-left"><p>O(1) to create</p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p>Views, not copies</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">s1</span> <span class="pre">&amp;</span> <span class="pre">s2</span></code> — intersection</p></td>
+<td class="text-left"><p>O(min(n, m))</p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">s1</span> <span class="pre">|</span> <span class="pre">s2</span></code> — union</p></td>
+<td class="text-left"><p>O(n + m)</p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">s1</span> <span class="pre">-</span> <span class="pre">s2</span></code> — difference</p></td>
+<td class="text-left"><p>O(n)</p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Keys must be hashable, so <code class="docutils literal notranslate"><span class="pre">tuple</span></code> works and <code class="docutils literal notranslate"><span class="pre">list</span></code> does not. A frozen set of coordinates as <code class="docutils literal notranslate"><span class="pre">(r,</span> <span class="pre">c)</span></code> is the standard <code class="docutils literal notranslate"><span class="pre">visited</span></code> representation in grid problems.</p>
+<p><strong>Practical note.</strong> Treat dict and set lookups as O(1); the O(n) worst case does not occur on LeetCode inputs. The real cost is the constant factor — hashing a long string is proportional to its length, so <code class="docutils literal notranslate"><span class="pre">s</span> <span class="pre">in</span> <span class="pre">seen</span></code> on 10⁵ strings of length 10³ is O(n · k), not O(n).</p>
+</section>
+<hr class="docutils" />
+<section id="collections">
+<h2>§3 — collections<a class="headerlink" href="#collections" title="Link to this heading">#</a></h2>
+<section id="deque">
+<h3>deque<a class="headerlink" href="#deque" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Operation</p></th>
+<th class="head text-left"><p>Time</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">append</span></code> / <code class="docutils literal notranslate"><span class="pre">appendleft</span></code></p></td>
+<td class="text-left"><p>O(1)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">pop</span></code> / <code class="docutils literal notranslate"><span class="pre">popleft</span></code></p></td>
+<td class="text-left"><p>O(1)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">dq[i]</span></code> — index</p></td>
+<td class="text-left"><p><strong>O(n)</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">len(dq)</span></code></p></td>
+<td class="text-left"><p>O(1)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">in</span> <span class="pre">dq</span></code></p></td>
+<td class="text-left"><p>O(n)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">rotate(k)</span></code></p></td>
+<td class="text-left"><p>O(k)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Indexing into a deque is O(n) — it is a doubly linked list of blocks, not an array. Use it for the ends only. This is why the monotonic deque only ever touches <code class="docutils literal notranslate"><span class="pre">dq[0]</span></code> and <code class="docutils literal notranslate"><span class="pre">dq[-1]</span></code>, both of which are O(1).</p>
+</section>
+<section id="counter">
+<h3>Counter<a class="headerlink" href="#counter" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Operation</p></th>
+<th class="head text-left"><p>Time</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">Counter(iterable)</span></code></p></td>
+<td class="text-left"><p>O(n)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">c[k]</span></code></p></td>
+<td class="text-left"><p>O(1), returns <code class="docutils literal notranslate"><span class="pre">0</span></code> for a missing key</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">c.most_common()</span></code></p></td>
+<td class="text-left"><p>O(n log n)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">c.most_common(k)</span></code></p></td>
+<td class="text-left"><p>O(n log k) — uses a heap</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">c1</span> <span class="pre">+</span> <span class="pre">c2</span></code>, <code class="docutils literal notranslate"><span class="pre">c1</span> <span class="pre">-</span> <span class="pre">c2</span></code>, <code class="docutils literal notranslate"><span class="pre">c1</span> <span class="pre">&amp;</span> <span class="pre">c2</span></code></p></td>
+<td class="text-left"><p>O(n + m)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">c1</span> <span class="pre">==</span> <span class="pre">c2</span></code></p></td>
+<td class="text-left"><p>O(n) — the standard anagram check</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="defaultdict">
+<h3>defaultdict<a class="headerlink" href="#defaultdict" title="Link to this heading">#</a></h3>
+<p>Same costs as <code class="docutils literal notranslate"><span class="pre">dict</span></code>. <code class="docutils literal notranslate"><span class="pre">defaultdict(list)</span></code> and <code class="docutils literal notranslate"><span class="pre">defaultdict(int)</span></code> are the two that matter — the default is created on <em>access</em>, so a bare read inserts a key. If that matters, use <code class="docutils literal notranslate"><span class="pre">d.get(k)</span></code> instead.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="heapq">
+<h2>§4 — heapq<a class="headerlink" href="#heapq" title="Link to this heading">#</a></h2>
+<p>Python’s heap is a <strong>min-heap</strong> over a plain list. For a max-heap, push negated values.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Operation</p></th>
+<th class="head text-left"><p>Time</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">heapq.heappush(h,</span> <span class="pre">x)</span></code></p></td>
+<td class="text-left"><p>O(log n)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">heapq.heappop(h)</span></code></p></td>
+<td class="text-left"><p>O(log n)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">h[0]</span></code> — peek at the minimum</p></td>
+<td class="text-left"><p>O(1)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">heapq.heapify(lst)</span></code></p></td>
+<td class="text-left"><p><strong>O(n)</strong> — not O(n log n)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">heapq.heappushpop(h,</span> <span class="pre">x)</span></code></p></td>
+<td class="text-left"><p>O(log n) — cheaper than push then pop</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">heapq.heapreplace(h,</span> <span class="pre">x)</span></code></p></td>
+<td class="text-left"><p>O(log n) — pop then push</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">heapq.nlargest(k,</span> <span class="pre">it)</span></code> / <code class="docutils literal notranslate"><span class="pre">nsmallest(k,</span> <span class="pre">it)</span></code></p></td>
+<td class="text-left"><p>O(n log k)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Building a heap by repeated push</p></td>
+<td class="text-left"><p>O(n log n)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Two costs worth remembering: <code class="docutils literal notranslate"><span class="pre">heapify</span></code> on an existing list is <strong>O(n)</strong>, so build the list first and heapify once rather than pushing n times. And “top k of n” is O(n log k), which is why a heap beats sorting when k is small.</p>
+<p>Tuples in a heap compare element by element, so <code class="docutils literal notranslate"><span class="pre">(priority,</span> <span class="pre">item)</span></code> works — but the tie-breaker must also be comparable. Push <code class="docutils literal notranslate"><span class="pre">(dist,</span> <span class="pre">counter,</span> <span class="pre">node)</span></code> when nodes are not orderable.</p>
+</section>
+<hr class="docutils" />
+<section id="str">
+<h2>§5 — str<a class="headerlink" href="#str" title="Link to this heading">#</a></h2>
+<p>Strings are immutable, which is the source of most string-problem complexity surprises.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Operation</p></th>
+<th class="head text-left"><p>Time</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">s[i]</span></code></p></td>
+<td class="text-left"><p>O(1)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">len(s)</span></code></p></td>
+<td class="text-left"><p>O(1)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">s[a:b]</span></code></p></td>
+<td class="text-left"><p>O(b − a) — copies</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">s</span> <span class="pre">+</span> <span class="pre">t</span></code></p></td>
+<td class="text-left"><p><strong>O(n + m)</strong> — builds a new string</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">s</span> <span class="pre">+=</span> <span class="pre">t</span></code> in a loop</p></td>
+<td class="text-left"><p><strong>O(n²)</strong> overall</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">''.join(list_of_str)</span></code></p></td>
+<td class="text-left"><p>O(total length)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">t</span> <span class="pre">in</span> <span class="pre">s</span></code> — substring search</p></td>
+<td class="text-left"><p>O(n · m) worst, near O(n) typical</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">s.find(t)</span></code> / <code class="docutils literal notranslate"><span class="pre">s.index(t)</span></code></p></td>
+<td class="text-left"><p>Same</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">s.split()</span></code> / <code class="docutils literal notranslate"><span class="pre">s.replace()</span></code></p></td>
+<td class="text-left"><p>O(n)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">s.strip()</span></code> / <code class="docutils literal notranslate"><span class="pre">.lower()</span></code> / <code class="docutils literal notranslate"><span class="pre">.upper()</span></code></p></td>
+<td class="text-left"><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">sorted(s)</span></code></p></td>
+<td class="text-left"><p>O(n log n) — returns a list</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">s</span> <span class="pre">==</span> <span class="pre">t</span></code></p></td>
+<td class="text-left"><p>O(n)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>The O(n²) trap:</strong> building a string with <code class="docutils literal notranslate"><span class="pre">result</span> <span class="pre">+=</span> <span class="pre">char</span></code> inside a loop is quadratic, because each <code class="docutils literal notranslate"><span class="pre">+=</span></code> copies the whole accumulated string. Append to a list and <code class="docutils literal notranslate"><span class="pre">''.join(...)</span></code> once at the end.</p>
+</section>
+<hr class="docutils" />
+<section id="sorting-and-searching">
+<h2>§6 — sorting and searching<a class="headerlink" href="#sorting-and-searching" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Operation</p></th>
+<th class="head text-left"><p>Time</p></th>
+<th class="head text-left"><p>Space</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">sorted(it)</span></code></p></td>
+<td class="text-left"><p>O(n log n)</p></td>
+<td class="text-left"><p>O(n) — new list</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">lst.sort()</span></code></p></td>
+<td class="text-left"><p>O(n log n)</p></td>
+<td class="text-left"><p>O(n) worst for Timsort’s merge buffer</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">sorted(it,</span> <span class="pre">key=f)</span></code></p></td>
+<td class="text-left"><p>O(n log n) calls to <code class="docutils literal notranslate"><span class="pre">f</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">f</span></code> is called once per element, not per comparison</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">sorted(it,</span> <span class="pre">key=cmp_to_key(f))</span></code></p></td>
+<td class="text-left"><p>O(n log n) calls to <code class="docutils literal notranslate"><span class="pre">f</span></code></p></td>
+<td class="text-left"><p>Much slower constant factor</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">bisect.bisect_left(lst,</span> <span class="pre">x)</span></code></p></td>
+<td class="text-left"><p>O(log n)</p></td>
+<td class="text-left"><p>Requires a sorted list</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">bisect.insort(lst,</span> <span class="pre">x)</span></code></p></td>
+<td class="text-left"><p><strong>O(n)</strong></p></td>
+<td class="text-left"><p>O(log n) to find, O(n) to shift</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Timsort is <strong>stable</strong> — equal elements keep their relative order, which is what makes multi-key sorting work by sorting on the least significant key first. It is also close to O(n) on partially sorted input, which is common in interval problems.</p>
+<p><code class="docutils literal notranslate"><span class="pre">bisect.insort</span></code> looks like an O(log n) insert but is O(n) because of the shift. Maintaining a sorted list under n insertions is O(n²); use a heap if you only need the extremes.</p>
+</section>
+<hr class="docutils" />
+<section id="memory-footprints">
+<h2>§7 — memory footprints<a class="headerlink" href="#memory-footprints" title="Link to this heading">#</a></h2>
+<p>Memory limits are rarely the binding constraint on LeetCode, but when they bite, this is why.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Object</p></th>
+<th class="head text-left"><p>Approximate bytes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">int</span></code> (small)</p></td>
+<td class="text-left"><p>28</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">int</span></code> (large)</p></td>
+<td class="text-left"><p>28 + 4 per 30 bits</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td class="text-left"><p>24</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td class="text-left"><p>28 (<code class="docutils literal notranslate"><span class="pre">True</span></code> / <code class="docutils literal notranslate"><span class="pre">False</span></code> are singletons)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">list</span></code> of n elements</p></td>
+<td class="text-left"><p>56 + 8n, <strong>plus the elements themselves</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">dict</span></code> with n entries</p></td>
+<td class="text-left"><p>≈ 64 + 100n</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">set</span></code> with n entries</p></td>
+<td class="text-left"><p>≈ 200 + 60n</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">str</span></code> of length n (ASCII)</p></td>
+<td class="text-left"><p>49 + n</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">tuple</span></code> of n elements</p></td>
+<td class="text-left"><p>40 + 8n + elements</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>The number that surprises people:</strong> a list of one million Python ints is <em>not</em> 4 MB. The list holds a million 8-byte pointers (8 MB) plus a million 28-byte int objects (28 MB) — roughly <strong>36 MB</strong>. Small ints from −5 to 256 are cached and shared, so <code class="docutils literal notranslate"><span class="pre">[0]</span> <span class="pre">*</span> <span class="pre">10**6</span></code> is only the 8 MB of pointers; a list of a million <em>distinct</em> values is not.</p>
+<p>Practical consequences:</p>
+<ul class="simple">
+<li><p>A 10⁴ × 10⁴ 2D DP table is 10⁸ cells and will not fit. Roll the DP down to one or two rows.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">visited</span></code> as a set of <code class="docutils literal notranslate"><span class="pre">(r,</span> <span class="pre">c)</span></code> tuples costs far more than a 2D boolean list, or than mutating the grid in place with a sentinel.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">range(n)</span></code> is O(1) memory; <code class="docutils literal notranslate"><span class="pre">list(range(n))</span></code> is not.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="the-traps-that-cost-the-most">
+<h2>§8 — the traps that cost the most<a class="headerlink" href="#the-traps-that-cost-the-most" title="Link to this heading">#</a></h2>
+<p>Ordered by how often they turn a correct solution into a TLE.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Trap</p></th>
+<th class="head text-left"><p>Symptom</p></th>
+<th class="head text-left"><p>Fix</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">list.pop(0)</span></code> in a BFS loop</p></td>
+<td class="text-left"><p>TLE at <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">≥</span> <span class="pre">10⁴</span></code>; correct on small tests</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">collections.deque</span></code> + <code class="docutils literal notranslate"><span class="pre">popleft()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">s</span> <span class="pre">+=</span> <span class="pre">char</span></code> inside a loop</p></td>
+<td class="text-left"><p>TLE on long strings only</p></td>
+<td class="text-left"><p>Accumulate in a list, <code class="docutils literal notranslate"><span class="pre">''.join</span></code> at the end</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">in</span> <span class="pre">list</span></code> inside a loop</p></td>
+<td class="text-left"><p>TLE; O(n²) hidden in an innocuous line</p></td>
+<td class="text-left"><p>Convert to a <code class="docutils literal notranslate"><span class="pre">set</span></code> first</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Slicing inside a loop — <code class="docutils literal notranslate"><span class="pre">s[i:j]</span></code></p></td>
+<td class="text-left"><p>TLE; each slice is O(j − i)</p></td>
+<td class="text-left"><p>Compare indices, or use a rolling hash</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">sorted()</span></code> inside a loop</p></td>
+<td class="text-left"><p>TLE; O(n² log n)</p></td>
+<td class="text-left"><p>Sort once outside, or use a heap</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Repeated <code class="docutils literal notranslate"><span class="pre">heappush</span></code> to build a heap</p></td>
+<td class="text-left"><p>Passes, but n log n where n was available</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">heapify</span></code> once</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">bisect.insort</span></code> in a loop</p></td>
+<td class="text-left"><p>TLE; the shift is O(n)</p></td>
+<td class="text-left"><p>Heap, or batch and sort once</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Recomputing <code class="docutils literal notranslate"><span class="pre">len()</span></code> or <code class="docutils literal notranslate"><span class="pre">max()</span></code> per iteration</p></td>
+<td class="text-left"><p>Constant-factor slowdown</p></td>
+<td class="text-left"><p>Hoist out of the loop</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Deep recursion on <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">10⁵</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">RecursionError</span></code>, not a wrong answer</p></td>
+<td class="text-left"><p>Convert to an iterative stack, or raise the limit</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Building a full 2D DP table when one row suffices</p></td>
+<td class="text-left"><p>MLE, or a memory-limit verdict</p></td>
+<td class="text-left"><p>Roll the DP to one or two rows</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For deriving complexity rather than looking it up, continue to <code class="docutils literal notranslate"><span class="pre">05_complexity_analysis</span></code>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Python LeetCode"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="03_python_strings.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Python Strings — Technical Reference</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="05_complexity_analysis.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Complexity Analysis — How to Derive It</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

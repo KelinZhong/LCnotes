@@ -1,0 +1,824 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Decision Guide — Unseen Problem to Pattern &#8212; LeetCode Prep Notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=91b9d135" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Python LeetCode/01_decision_guide';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Python Toolkit &amp; Complexity" href="group_toolkit.html" />
+    <link rel="prev" title="Start Here" href="00_python_dsa.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">LeetCode Prep Notes</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    Topics
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" current active">
+  <a class="nav-link dropdown-item nav-internal" href="00_python_dsa.html">
+    Start Here
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="group_toolkit.html">
+    Python Toolkit & Complexity
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="group_core_patterns.html">
+    Core Patterns
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="group_advanced.html">
+    Advanced
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../SQL%20LeetCode/SQL_quickcheck.html">
+    SQL
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="00_python_dsa.html">
+    Start Here
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="group_toolkit.html">
+    Python Toolkit & Complexity
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="group_core_patterns.html">
+    Core Patterns
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="group_advanced.html">
+    Advanced
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../SQL%20LeetCode/SQL_quickcheck.html">
+    SQL
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Decision Guide — problem to pattern</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-30-second-routine">The 30-second routine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-1-constraints-to-complexity-to-pattern">Table 1 — Constraints to complexity to pattern</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-2-phrase-to-pattern">Table 2 — Phrase to pattern</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-3-input-shape-to-candidate-patterns">Table 3 — Input shape to candidate patterns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-4-disambiguating-the-near-neighbours">Table 4 — Disambiguating the near neighbours</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-nothing-matches">When nothing matches</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-to-go-next">Where to go next</a></li>
+</ul>
+  </nav></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../intro.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="00_python_dsa.html" class="nav-link">Start Here</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Decision Guide — Unseen Problem to Pattern</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="decision-guide-unseen-problem-to-pattern">
+<h1>Decision Guide — Unseen Problem to Pattern<a class="headerlink" href="#decision-guide-unseen-problem-to-pattern" title="Link to this heading">#</a></h1>
+<p><em>Start here. Open this before you know what kind of problem you are looking at.</em></p>
+<p>Every other notebook assumes you have already named the topic. This one does not. It is keyed on what you can observe in the first thirty seconds — the constraints, the wording, and the shape of the input — so you can route a problem you have never seen to the notebook that solves it.</p>
+<p><strong>How to use it:</strong> read the constraints first (they eliminate the most), then scan the phrase table, then confirm with the input-shape table. Three passes, under a minute.</p>
+<hr class="docutils" />
+<section id="the-30-second-routine">
+<h2>The 30-second routine<a class="headerlink" href="#the-30-second-routine" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Read the constraint on <code class="docutils literal notranslate"><span class="pre">n</span></code>.</strong> It tells you the complexity you are allowed, which usually eliminates most of the pattern space before you have thought about the problem at all.</p></li>
+<li><p><strong>Underline the operative phrase.</strong> “kth largest”, “next greater”, “number of ways”, “all possible” — these map almost one-to-one onto patterns.</p></li>
+<li><p><strong>Name the input shape.</strong> Sorted array, grid, tree, graph, string, intervals. Each shape has a short list of candidates.</p></li>
+<li><p><strong>State the brute force out loud, then ask what it repeats.</strong> Recomputed subproblems point to DP or memoization; a rescanned window points to sliding window or prefix sums; a repeated max/min lookup points to a heap or monotonic stack.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="table-1-constraints-to-complexity-to-pattern">
+<h2>Table 1 — Constraints to complexity to pattern<a class="headerlink" href="#table-1-constraints-to-complexity-to-pattern" title="Link to this heading">#</a></h2>
+<p>Work backwards: the constraint fixes the complexity you are allowed, and the complexity fixes the short list of patterns.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Constraint on <code class="docutils literal notranslate"><span class="pre">n</span></code></p></th>
+<th class="head text-left"><p>Complexity you can afford</p></th>
+<th class="head text-left"><p>Patterns that fit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">≤</span> <span class="pre">12</span></code></p></td>
+<td class="text-left"><p>O(n!)</p></td>
+<td class="text-left"><p>Permutation backtracking, brute-force ordering</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">≤</span> <span class="pre">20</span></code></p></td>
+<td class="text-left"><p>O(2ⁿ)</p></td>
+<td class="text-left"><p>Subset backtracking, bitmask enumeration, bitmask DP</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">≤</span> <span class="pre">100</span></code></p></td>
+<td class="text-left"><p>O(n³)</p></td>
+<td class="text-left"><p>Interval DP, Floyd-Warshall, triple loops</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">≤</span> <span class="pre">1,000</span></code></p></td>
+<td class="text-left"><p>O(n²)</p></td>
+<td class="text-left"><p>2D DP, string DP, pairwise scans, LIS (quadratic form)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">≤</span> <span class="pre">10⁵</span></code></p></td>
+<td class="text-left"><p>O(n log n)</p></td>
+<td class="text-left"><p>Sorting, binary search, heap, monotonic stack, sweep line</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">≤</span> <span class="pre">10⁶</span></code></p></td>
+<td class="text-left"><p>O(n)</p></td>
+<td class="text-left"><p>Single pass, prefix sums, two pointers, sliding window, counting</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">≤</span> <span class="pre">10⁹</span></code></p></td>
+<td class="text-left"><p>O(log n) or O(1)</p></td>
+<td class="text-left"><p>Binary search on the <em>answer</em>, math, closed form, bit tricks</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Two readings that carry most of the weight:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">≤</span> <span class="pre">20</span></code> almost always means exponential is intended.</strong> Small bounds are permission, not a warning. If you see 20 and are hunting for a polynomial solution, you are probably overthinking it — go to <code class="docutils literal notranslate"><span class="pre">12_backtracking</span></code> or the bitmask section of <code class="docutils literal notranslate"><span class="pre">17_bit_manipulation</span></code>.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">n</span></code> up to 10⁹ cannot be iterated at all</strong>, so the answer is never “scan the input”. Either the input is small and the <em>value range</em> is huge (binary search on the answer — see <code class="docutils literal notranslate"><span class="pre">08_binary_search</span></code>), or there is a formula.</p></li>
+</ul>
+<p><strong>A caution on multiple inputs.</strong> When there are two bounds — say <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">≤</span> <span class="pre">10⁵</span></code> nodes and <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">≤</span> <span class="pre">10⁵</span></code> edges, or <code class="docutils literal notranslate"><span class="pre">n</span></code> strings of length <code class="docutils literal notranslate"><span class="pre">k</span></code> — the target complexity is usually in terms of the product or sum, not the larger one alone. Check that O(n · k) is actually affordable before committing to it.</p>
+</section>
+<hr class="docutils" />
+<section id="table-2-phrase-to-pattern">
+<h2>Table 2 — Phrase to pattern<a class="headerlink" href="#table-2-phrase-to-pattern" title="Link to this heading">#</a></h2>
+<p>The wording of a problem is rarely accidental. These phrases carry most of the signal.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Phrase in the problem</p></th>
+<th class="head text-left"><p>Pattern</p></th>
+<th class="head text-left"><p>Notebook</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>“kth largest / smallest”, “top k”, “median of a stream”</p></td>
+<td class="text-left"><p>Heap (or quickselect)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">09_heap_and_monotonic_stack</span></code>, <code class="docutils literal notranslate"><span class="pre">16_divide_and_conquer</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>“next greater / smaller”, “warmer temperature”, “span”</p></td>
+<td class="text-left"><p>Monotonic stack</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">09_heap_and_monotonic_stack</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>“maximum of every window of size k”</p></td>
+<td class="text-left"><p>Monotonic deque</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">09_heap_and_monotonic_stack</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>“contiguous subarray / substring”</p></td>
+<td class="text-left"><p>Sliding window or prefix sum</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">07_two_pointers_and_sliding_window</span></code>, <code class="docutils literal notranslate"><span class="pre">06_arrays_and_hashing</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>“longest / shortest substring with condition”</p></td>
+<td class="text-left"><p>Variable-size sliding window</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">07_two_pointers_and_sliding_window</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>“subarray sums to k”, “range sum query”</p></td>
+<td class="text-left"><p>Prefix sum + hash map</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">06_arrays_and_hashing</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>“number of ways”, “minimum cost to reach”, “maximum profit”</p></td>
+<td class="text-left"><p>DP</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">14_dynamic_programming</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>“all possible”, “generate every”, “enumerate combinations”</p></td>
+<td class="text-left"><p>Backtracking</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">12_backtracking</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>“is it possible to”, “can you partition”</p></td>
+<td class="text-left"><p>Backtracking or subset-sum DP</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">12_backtracking</span></code>, <code class="docutils literal notranslate"><span class="pre">14_dynamic_programming</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>“minimum number of X such that”, “maximize the minimum”</p></td>
+<td class="text-left"><p>Binary search on the answer</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">08_binary_search</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>“first / last position”, “insertion point”, “rotated sorted”</p></td>
+<td class="text-left"><p>Binary search on index</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">08_binary_search</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>“shortest path”, unweighted graph</p></td>
+<td class="text-left"><p>BFS</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">11_trees_and_graphs</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>“shortest path”, weighted edges</p></td>
+<td class="text-left"><p>Dijkstra (or Bellman-Ford if negative)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">11_trees_and_graphs</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>“prerequisites”, “build order”, “course schedule”</p></td>
+<td class="text-left"><p>Topological sort</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">11_trees_and_graphs</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>“connected”, “same group”, “merge accounts”, “islands count”</p></td>
+<td class="text-left"><p>Union Find or DFS/BFS flood fill</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">15_trie_and_union_find</span></code>, <code class="docutils literal notranslate"><span class="pre">11_trees_and_graphs</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>“prefix”, “starts with”, “autocomplete”, “word search on a board”</p></td>
+<td class="text-left"><p>Trie</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">15_trie_and_union_find</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>“cycle”, “find the duplicate number”</p></td>
+<td class="text-left"><p>Fast &amp; slow pointers</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">10_linked_lists</span></code>, <code class="docutils literal notranslate"><span class="pre">07_two_pointers_and_sliding_window</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>“merge intervals”, “meeting rooms”, “non-overlapping”</p></td>
+<td class="text-left"><p>Sort by endpoint, then greedy sweep</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">13_greedy</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>“appears once”, “appears twice except one”</p></td>
+<td class="text-left"><p>XOR</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">17_bit_manipulation</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>“range sum with updates”</p></td>
+<td class="text-left"><p>BIT / segment tree</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">18_segment_tree_and_bit</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>“in-place”, “O(1) extra space” on an array</p></td>
+<td class="text-left"><p>Index-as-hash, or two pointers</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">06_arrays_and_hashing</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>“lexicographically smallest / largest”</p></td>
+<td class="text-left"><p>Greedy, often with a monotonic stack</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">13_greedy</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Phrases that mislead.</strong> “Maximum” alone means nothing — it appears in greedy, DP, heap and binary-search-on-answer problems. What disambiguates it is whether choices are <em>independent</em> (greedy), <em>dependent on earlier choices</em> (DP), or <em>checkable given a candidate value</em> (binary search on answer).</p>
+</section>
+<hr class="docutils" />
+<section id="table-3-input-shape-to-candidate-patterns">
+<h2>Table 3 — Input shape to candidate patterns<a class="headerlink" href="#table-3-input-shape-to-candidate-patterns" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Input shape</p></th>
+<th class="head text-left"><p>First candidates</p></th>
+<th class="head text-left"><p>Then consider</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Sorted array</p></td>
+<td class="text-left"><p>Two pointers, binary search</p></td>
+<td class="text-left"><p>Prefix sums</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Unsorted array, order irrelevant</p></td>
+<td class="text-left"><p>Hash map / set, counting</p></td>
+<td class="text-left"><p>Sort first, then two pointers</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Unsorted array, order matters</p></td>
+<td class="text-left"><p>Sliding window, prefix sum, monotonic stack</p></td>
+<td class="text-left"><p>DP</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Array of intervals</p></td>
+<td class="text-left"><p>Sort by start or end, sweep</p></td>
+<td class="text-left"><p>Heap for overlaps</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>String</p></td>
+<td class="text-left"><p>Sliding window, frequency map, two pointers</p></td>
+<td class="text-left"><p>DP (edit distance, palindromes), Trie</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Grid / matrix</p></td>
+<td class="text-left"><p>BFS, DFS, flood fill</p></td>
+<td class="text-left"><p>2D DP, binary search on value</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Binary tree</p></td>
+<td class="text-left"><p>Recursion returning a value up</p></td>
+<td class="text-left"><p>Global variable for cross-root paths, BFS by level</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>BST</p></td>
+<td class="text-left"><p>In-order traversal, binary-search descent</p></td>
+<td class="text-left"><p>—</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>General graph</p></td>
+<td class="text-left"><p>BFS / DFS, adjacency list</p></td>
+<td class="text-left"><p>Topological sort, Union Find, Dijkstra</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Linked list</p></td>
+<td class="text-left"><p>Dummy node, fast &amp; slow pointers</p></td>
+<td class="text-left"><p>In-place reversal</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Numbers with small bit width</p></td>
+<td class="text-left"><p>Bit tricks, bitmask</p></td>
+<td class="text-left"><p>Bitmask DP</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Streaming / online input</p></td>
+<td class="text-left"><p>Heap, two heaps, running aggregate</p></td>
+<td class="text-left"><p>Monotonic deque</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Nothing but a huge numeric range</p></td>
+<td class="text-left"><p>Binary search on the answer, math</p></td>
+<td class="text-left"><p>—</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="table-4-disambiguating-the-near-neighbours">
+<h2>Table 4 — Disambiguating the near neighbours<a class="headerlink" href="#table-4-disambiguating-the-near-neighbours" title="Link to this heading">#</a></h2>
+<p>These are the pairs that get confused most often. Each row is the question that separates them.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Confusable pair</p></th>
+<th class="head text-left"><p>The question that decides</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Greedy vs DP</p></td>
+<td class="text-left"><p>Does a locally optimal choice stay optimal? If you can construct a case where taking the best move now loses later, it is DP.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Backtracking vs DP</p></td>
+<td class="text-left"><p>Do you need to <em>output</em> every solution (backtracking), or just <em>count / optimise</em> over them (DP)?</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Sliding window vs two pointers</p></td>
+<td class="text-left"><p>Is the region between the pointers meaningful as a unit (window), or are you just converging from both ends (two pointers)?</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Sliding window vs prefix sum</p></td>
+<td class="text-left"><p>Are all values non-negative so shrinking is monotonic (window), or can values be negative (prefix sum + hash map)?</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>BFS vs DFS</p></td>
+<td class="text-left"><p>Shortest path or level-order → BFS. Path existence, connectivity, or exploring to a leaf → DFS.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Union Find vs DFS</p></td>
+<td class="text-left"><p>Are the edges arriving incrementally / do you need repeated “same group?” queries (Union Find), or is the graph fixed and you traverse once (DFS)?</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Heap vs sorting</p></td>
+<td class="text-left"><p>Do you need only the top k, or a running top element as data arrives (heap), or the whole ordering (sort)?</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Binary search on index vs on answer</p></td>
+<td class="text-left"><p>Are you searching <em>inside</em> an array (index), or over a range of candidate answer <em>values</em> (answer)?</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Monotonic stack vs heap</p></td>
+<td class="text-left"><p>Do you need the nearest qualifying element by position (stack), or the extreme element overall (heap)?</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Memoised recursion vs tabulation</p></td>
+<td class="text-left"><p>Same complexity — choose recursion when the state space is sparse or the transitions are awkward, tabulation when you want to drop the recursion stack.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="when-nothing-matches">
+<h2>When nothing matches<a class="headerlink" href="#when-nothing-matches" title="Link to this heading">#</a></h2>
+<p>If three passes have not produced a candidate, work these in order:</p>
+<ol class="arabic simple">
+<li><p><strong>Write the brute force.</strong> Even a hopeless one. Naming its complexity tells you the factor you need to remove, and the factor points at the tool: an inner rescan → prefix sum or sliding window; a repeated sort → heap; a recomputed subproblem → memoisation; a repeated “is this reachable” → Union Find.</p></li>
+<li><p><strong>Sort the input and look again.</strong> A surprising number of unsorted-array problems become two-pointer or greedy problems once sorted. Only viable if order is not part of the answer.</p></li>
+<li><p><strong>Invert the question.</strong> Counting what fails is sometimes far easier than counting what succeeds. “At most k” is often “at most k” minus “at most k−1”.</p></li>
+<li><p><strong>Reverse the direction.</strong> Iterating from the right, or from the target back to the source, collapses some problems entirely — suffix maximums, reverse topological order, working backwards from the goal state.</p></li>
+<li><p><strong>Look for the invariant.</strong> Ask what stays true after every operation. Monotonic structures, XOR cancellation and cycle detection all fall out of an invariant rather than a search.</p></li>
+<li><p><strong>Reduce to a known problem.</strong> Most interview problems are a light disguise over one of about twenty classics. “Find the duplicate number” is cycle detection; “trapping rain water” is prefix max plus suffix max; “course schedule” is topological sort.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="where-to-go-next">
+<h2>Where to go next<a class="headerlink" href="#where-to-go-next" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>You concluded</p></th>
+<th class="head text-left"><p>Open</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>It is a lookup / API question</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">02_python_builtins</span></code>, <code class="docutils literal notranslate"><span class="pre">03_python_strings</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>I need to check the cost of an operation</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">04_complexity_reference</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>I need to derive the complexity of what I wrote</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">05_complexity_analysis</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>A specific pattern</p></td>
+<td class="text-left"><p>The numbered notebook named in the tables above</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Python LeetCode"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="00_python_dsa.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Start Here</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="group_toolkit.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Python Toolkit &amp; Complexity</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

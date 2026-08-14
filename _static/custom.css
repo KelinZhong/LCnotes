@@ -1,0 +1,28 @@
+/* LeetCode Prep Notes — custom styling */
+
+/* Tables carry most of the content in this book: keep them dense and scannable. */
+table.docutils, .cell table, div.cell_output table {
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+table.docutils th {
+  background-color: var(--pst-color-surface);
+  font-weight: 600;
+}
+
+/* Wide comparison tables should scroll rather than overflow the page. */
+.table-wrapper, div.cell_output {
+  overflow-x: auto;
+}
+
+/* Code templates are the other half of the content — give them room. */
+div.highlight pre {
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+/* The one-line tier subtitle under each notebook title. */
+.bd-article p em:first-child {
+  color: var(--pst-color-text-muted);
+}
