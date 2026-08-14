@@ -1,16 +1,16 @@
 format: jb-book
 root: intro
 
-parts:
-  - caption: Python — Start Here
-    chapters:
-      - file: Python LeetCode/00_python_dsa
-        title: How to use these notes
+chapters:
+  - file: Python LeetCode/00_python_dsa
+    title: Start Here
+    sections:
       - file: Python LeetCode/01_decision_guide
         title: Decision Guide — problem to pattern
 
-  - caption: Python — Toolkit & Complexity
-    chapters:
+  - file: Python LeetCode/group_toolkit
+    title: Python Toolkit & Complexity
+    sections:
       - file: Python LeetCode/02_python_builtins
         title: Python Builtins (Reference)
       - file: Python LeetCode/03_python_strings
@@ -20,8 +20,9 @@ parts:
       - file: Python LeetCode/05_complexity_analysis
         title: Complexity Analysis (Method)
 
-  - caption: Python — Core Patterns
-    chapters:
+  - file: Python LeetCode/group_core_patterns
+    title: Core Patterns
+    sections:
       - file: Python LeetCode/06_arrays_and_hashing
         title: Arrays & Hashing (Reference)
       - file: Python LeetCode/07_two_pointers_and_sliding_window
@@ -41,8 +42,9 @@ parts:
       - file: Python LeetCode/14_dynamic_programming
         title: Dynamic Programming (Study Guide)
 
-  - caption: Python — Advanced
-    chapters:
+  - file: Python LeetCode/group_advanced
+    title: Advanced
+    sections:
       - file: Python LeetCode/15_trie_and_union_find
         title: Trie & Union Find (Cheat Sheet)
       - file: Python LeetCode/16_divide_and_conquer
@@ -52,12 +54,10 @@ parts:
       - file: Python LeetCode/18_segment_tree_and_bit
         title: Segment Tree & BIT (Reference)
 
-  - caption: SQL
-    chapters:
-      - file: SQL LeetCode/SQL_quickcheck
-        title: SQL LeetCode
-        sections:
-          - file: SQL LeetCode/reference_SQL_syntax
-            title: SQL Syntax (Reference)
-          - file: SQL LeetCode/reference_SQL_patterns
-            title: SQL Question Patterns (Reference)
+  - file: SQL LeetCode/SQL_quickcheck
+    title: SQL
+    sections:
+      - file: SQL LeetCode/reference_SQL_syntax
+        title: SQL Syntax (Reference)
+      - file: SQL LeetCode/reference_SQL_patterns
+        title: SQL Question Patterns (Reference)

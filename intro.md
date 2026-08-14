@@ -26,47 +26,12 @@ Every notebook carries one of these labels under its title.
 
 ## Contents
 
-**Python — start here**
-
-| Notebook | |
+| Group | What's in it |
 | :--- | :--- |
-| `01_decision_guide` | Constraints, phrases and input shapes → the right pattern |
+| **Start Here** | How to use these notes, and the Decision Guide |
+| **Python Toolkit & Complexity** | Builtins, strings, operation costs, and how to derive a complexity |
+| **Core Patterns** | The nine patterns that cover roughly 80% of interview problems |
+| **Advanced** | Trie & Union Find, Divide & Conquer, Bit Manipulation, Segment Tree & BIT |
+| **SQL** | Syntax reference and question patterns |
 
-**Python — toolkit and complexity**
-
-| Notebook | Kind |
-| :--- | :--- |
-| `02_python_builtins` | Reference |
-| `03_python_strings` | Reference |
-| `04_complexity_reference` | Reference — operation costs and memory |
-| `05_complexity_analysis` | Method — how to derive a complexity |
-
-**Python — core patterns** (roughly 80% of interview problems)
-
-| Notebook | Kind |
-| :--- | :--- |
-| `06_arrays_and_hashing` | Reference |
-| `07_two_pointers_and_sliding_window` | Study Guide |
-| `08_binary_search` | Cheat Sheet |
-| `09_heap_and_monotonic_stack` | Cheat Sheet |
-| `10_linked_lists` | Reference |
-| `11_trees_and_graphs` | Study Guide |
-| `12_backtracking` | Cheat Sheet |
-| `13_greedy` | Cheat Sheet |
-| `14_dynamic_programming` | Study Guide |
-
-**Python — advanced** (lower frequency)
-
-| Notebook | Kind |
-| :--- | :--- |
-| `15_trie_and_union_find` | Cheat Sheet |
-| `16_divide_and_conquer` | Reference |
-| `17_bit_manipulation` | Reference |
-| `18_segment_tree_and_bit` | Reference |
-
-**SQL**
-
-| Notebook | Kind |
-| :--- | :--- |
-| `reference_SQL_syntax` | Reference — function names, argument order, dialect differences |
-| `reference_SQL_patterns` | Reference — question patterns, templates, decision guides |
+Each group has a contents page of its own listing the notebooks it holds.
